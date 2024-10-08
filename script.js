@@ -95,7 +95,7 @@ function loadBuildingsByYearRange(minYear, maxYear) {
             const filteredData = {
                 ...data,
                 features: data.features.filter(feature => {
-                    const constructionYear = extractYear(feature.properties.beginning);
+                    const constructionYear = extractYear(feature.properties);
                     if (constructionYear >= minYear && constructionYear <= maxYear) {
                         buildingCounts[constructionYear] = (buildingCounts[constructionYear] || 0) + 1;
                         return true;
@@ -105,7 +105,7 @@ function loadBuildingsByYearRange(minYear, maxYear) {
             };
             buildingLayer = L.geoJSON(filteredData, {
                 style: function(feature) {
-                    const year = extractYear(feature.properties.beginning);
+                    const year = extractYear(feature.properties);
                     return {
                         color: getColor(year),
                         weight: 1,
