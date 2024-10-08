@@ -1,7 +1,20 @@
-const mapboxAccessToken = 'pk.eyJ1IjoicmlsZXlsZXByZWxsIiwiYSI6ImNtMjBzOHBobjBrZ2cyb29jdjg2b3N0Y3MifQ.6VGyJ2OS6SCSSyF_xbmS1A'
+const mapboxAccessToken = 'pk.eyJ1IjoicmlsZXlsZXByZWxsIiwiYSI6ImNtMjBzOHBobjBrZ2cyb29jdjg2b3N0Y3MifQ.6VGyJ2OS6SCSSyF_xbmS1A';
 
-// Initialize the map and set its view to Dwntown Cramerton
-const map = L.map('map').setView([-81.0718, 35.2359], 14); // Downtown Cramerton Cords
+// Get the selected city from URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const city = urlParams.get('city') || 'gandia'; // Default to Gandia if no city is provided
+
+// Initialize the map and set its view to the selected city
+const cityCoordinates = {
+    'Cramerton': [35.2359, -81.0718]  // Coordinates for A Coruña
+};
+
+const cityDataFiles = {
+    'Cramerton': 'Cramerton_Building_Age.geojson' // Add the A Coruña GeoJSON file reference
+};
+
+const map = L.map('map').setView(cityCoordinates[city], 14);
+
 // Add a darker Mapbox tile layer to the map
 L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
     maxZoom: 19,
@@ -12,10 +25,19 @@ L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?
 
 let buildingLayer;
 
-function extractYear(properties) {
-    const yearBuilt = properties['FIRST_BldgFP2021_AddSpatialJoin_YEARBLT'];
-    return yearBuilt ? parseInt(yearBuilt) : null;
+function extractYear(beginning) {
+    if (typeof beginning === 'number') {
+        // If 'beginning' is just a year, return it as is
+        return beginning;
+    } else if (typeof beginning === 'string') {
+        // If 'beginning' is a date string, extract the year
+        const yearMatch = beginning.match(/\b(19|20)\d{2}\b/);
+        return yearMatch ? parseInt(yearMatch[0]) : null;
+    }
+    return null; // Return null if no valid year is found
 }
+
+
 function getColor(year) {
     if (year >= 2000) return '#A3D69A';
     else if (year >= 1980) return '#A7BC8A';
@@ -23,6 +45,7 @@ function getColor(year) {
     else if (year >= 1940) return '#AE876B';
     else return '#B26D5B';
 }
+
 const ctx = document.getElementById('buildingsChart').getContext('2d');
 const buildingsChart = new Chart(ctx, {
     type: 'bar',
@@ -36,37 +59,38 @@ const buildingsChart = new Chart(ctx, {
         }]
     },
     options: {
-        indexAxis: 'y',  // Keep 'y' to have horizontal bars
+        indexAxis: 'y',  // Horizontal bars
         plugins: {
-            legend: { display: false } // Remove the legend
+            legend: { display: false }
         },
         scales: {
-            x: { 
-                beginAtZero: true, 
-                title: { display: true, text: 'Number of Buildings', color: '#ffffff' }, // White font color
+            x: {
+                beginAtZero: true,
+                title: { display: true, text: 'Number of Buildings', color: '#ffffff' },
                 grid: { display: false },
                 ticks: {
-                    font: { family: 'Inter', weight: '600' }, // Use Inter font
-                    color: '#ffffff' // White font color
+                    font: { family: 'Inter', weight: '600' },
+                    color: '#ffffff'
                 }
             },
             y: {
                 beginAtZero: true,
-                title: { display: true, text: 'Years', padding: {top: 0, bottom: 10}, color: '#ffffff' }, // White font color
+                title: { display: true, text: 'Years', padding: { top: 0, bottom: 30 }, color: '#ffffff' },
                 grid: { display: false },
                 ticks: {
-                    font: { family: 'Inter', weight: '600' }, // Use Inter font
-                    color: '#ffffff' // White font color
+                    font: { family: 'Inter', weight: '600' },
+                    color: '#ffffff'
                 }
             }
         },
-        animation: { duration: 800 } // Reduce animation time to make it smoother
+        animation: { duration: 800 }
     }
 });
+
 function updateChart(buildingCounts) {
     const years = Object.keys(buildingCounts).sort((a, b) => a - b);
     const counts = years.map(year => buildingCounts[year]);
-    const colors = years.map(year => getColor(parseInt(year))); // Match bar colors
+    const colors = years.map(year => getColor(parseInt(year)));
 
     buildingsChart.data.labels = years;
     buildingsChart.data.datasets[0].data = counts;
@@ -76,26 +100,29 @@ function updateChart(buildingCounts) {
     const totalBuildings = counts.reduce((sum, count) => sum + count, 0);
     document.getElementById('total-buildings').innerText = `Total Buildings: ${totalBuildings}`;
 
-    // Calculate the average year of visible buildings
     const totalYears = years.reduce((sum, year, index) => sum + (year * counts[index]), 0);
     const averageYear = (totalBuildings > 0) ? Math.round(totalYears / totalBuildings) : 0;
     document.getElementById('average-year').innerText = `Average Year: ${averageYear}`;
 }
 
 function loadBuildingsByYearRange(minYear, maxYear) {
-    fetch('Cramerton_Building_Age.geojson')
+    const dataFile = cityDataFiles[city];
 
+    fetch(dataFile)
         .then(response => response.json())
         .then(data => {
             if (!data.features || data.features.length === 0) return;
+
             if (buildingLayer) {
                 map.removeLayer(buildingLayer);
             }
+
             const buildingCounts = {};
+
             const filteredData = {
                 ...data,
                 features: data.features.filter(feature => {
-                    const constructionYear = extractYear(feature.properties);
+                    const constructionYear = extractYear(feature.properties.beginning);
                     if (constructionYear >= minYear && constructionYear <= maxYear) {
                         buildingCounts[constructionYear] = (buildingCounts[constructionYear] || 0) + 1;
                         return true;
@@ -103,33 +130,39 @@ function loadBuildingsByYearRange(minYear, maxYear) {
                     return false;
                 })
             };
+
             buildingLayer = L.geoJSON(filteredData, {
                 style: function(feature) {
-                    const year = extractYear(feature.properties);
+                    const year = extractYear(feature.properties.beginning);
                     return {
                         color: getColor(year),
                         weight: 1,
-                        fillOpacity: 0.5  // Decrease opacity slightly
+                        fillOpacity: 0.5
                     };
                 },
                 onEachFeature: function(feature, layer) {
-                    const year = extractYear(feature.properties);
+                    const year = extractYear(feature.properties.beginning);
                     layer.bindPopup(`Building Age: ${year}`);
                 }
             }).addTo(map);
+
             updateChart(buildingCounts);
         })
         .catch(error => console.error('Error loading GeoJSON data:', error));
 }
+
 loadBuildingsByYearRange(1900, 2024);
+
 const yearSliderMin = document.getElementById('year-slider-min');
 const yearSliderMax = document.getElementById('year-slider-max');
 const yearRangeDisplay = document.getElementById('year-range');
+
 function updateYearRange() {
     const minYear = parseInt(yearSliderMin.value);
     const maxYear = parseInt(yearSliderMax.value);
     yearRangeDisplay.innerText = `${minYear} - ${maxYear}`;
     loadBuildingsByYearRange(minYear, maxYear);
 }
+
 yearSliderMin.addEventListener('input', updateYearRange);
 yearSliderMax.addEventListener('input', updateYearRange);
