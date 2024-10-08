@@ -6,11 +6,11 @@ const city = urlParams.get('city') || 'cramerton'; // Default to Cramerton if no
 
 // Initialize the map and set its view to the selected city
 const cityCoordinates = {
-    'Cramerton': [35.2359, -81.0718]  // Coordinates for A Coruña
+    'Cramerton': [35.2359, -81.0718]  // Coordinates for Cramerton
 };
 
 const cityDataFiles = {
-    'Cramerton': 'Cramerton_Building_Age.geojson' // Add the A Coruña GeoJSON file reference
+    'Cramerton': 'Cramerton_Building_Age.geojson' // Add the A Cramerton GeoJSON file reference
 };
 
 const map = L.map('map').setView(cityCoordinates[city], 14);
