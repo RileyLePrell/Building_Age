@@ -2,7 +2,7 @@ const mapboxAccessToken = 'pk.eyJ1IjoicmlsZXlsZXByZWxsIiwiYSI6ImNtMjBzOHBobjBrZ2
 
 // Get the selected city from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-const city = urlParams.get('city') || 'gandia'; // Default to Gandia if no city is provided
+const city = urlParams.get('city') || 'cramerton'; // Default to Cramerton if no city is provided
 
 // Initialize the map and set its view to the selected city
 const cityCoordinates = {
