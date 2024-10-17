@@ -17,14 +17,14 @@ const cityCoordinates = {
 };
 
 const cityDataFiles = {
-    'gandia': 'building-gandia.geojson',
-    'crevillente': 'building-crevillente.geojson',
-    'valencia': 'building-valencia.geojson',
-    'benidorm': 'building-benidorm.geojson',
-    'elche': 'building-elche.geojson',
-    'alcoy': 'building-alcoy.geojson',
-    'coruna': 'building-coruna.geojson',
-    'Cramerton': 'Cramerton_Building_Age.geojson'// Add the A Cramerton GeoJSON file reference
+    'gandia': 'data/building-gandia.geojson',
+    'crevillente': 'data/building-crevillente.geojson',
+    'valencia': 'data/building-valencia.geojson',
+    'benidorm': 'data/building-benidorm.geojson',
+    'elche': 'data/building-elche.geojson',
+    'alcoy': 'data/building-alcoy.geojson',
+    'coruna': 'data/building-coruna.geojson',
+    'Cramerton': 'data/Cramerton_Building_Age.geojson'// Add the A Cramerton GeoJSON file reference
 };
 
 const map = L.map('map').setView(cityCoordinates[city], 14);
