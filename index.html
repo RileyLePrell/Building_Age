@@ -3,30 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>City Selection - Building Age Visualization</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <title>Built Legacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="title-container">
-        <h1 class="title">Select a City for Building Age Visualization</h1>
-    </div>
+    <div class="cover-screen">
+        <!-- North America Sidebar -->
+        <div id="sidebar-na" class="sidebar">
+            <button class="close-btn" onclick="closeSidebar('na')">×</button>
+            <h2 class="sidebar-title-na">EXPLORE NORTH AMERICA</h2>
+            <p class="sidebar-subtitle">CLICK ON A CITY TO BEGIN</p>
+            <button class="city-button" onclick="location.href='visualization.html?city=cramerton'">Cramerton</button>
+        </div>
 
-    <div class="city-selection-container">
-        <button class="city-button" onclick="selectCity('Cramerton')">Cramerton</button> 
-        <button class="city-button" onclick="selectCity('gandia')">Gandia</button>
-        <button class="city-button" onclick="selectCity('crevillente')">Crevillente</button> 
-        <button class="city-button" onclick="selectCity('valencia')">Valencia</button>
-        <button class="city-button" onclick="selectCity('benidorm')">Benidorm</button>
-        <button class="city-button" onclick="selectCity('elche')">Elche</button>
-        <button class="city-button" onclick="selectCity('alcoy')">Alcoy</button>
-        <button class="city-button" onclick="selectCity('coruna')">A Coruña</button>
+        <!-- Europe Sidebar -->
+        <div id="sidebar-eu" class="sidebar">
+            <button class="close-btn" onclick="closeSidebar('eu')">×</button>
+            <h2 class="sidebar-title-eu">EXPLORE EUROPE</h2>
+            <p class="sidebar-subtitle">CLICK ON A CITY TO BEGIN</p>
+            <button class="city-button" onclick="location.href='visualization.html?city=gandia'">Gandia</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=crevillente'">Crevillente</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=valencia'">Valencia</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=benidorm'">Benidorm</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=elche'">Elche</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=alcoy'">Alcoy</button>
+            <button class="city-button" onclick="location.href='visualization.html?city=coruna'">A Coruña</button>
+        </div>
+
+        <!-- Cover Screen Logo -->
+        <img src="assets/Cover Screen Logo Icon.svg" alt="Built Legacy Logo" class="logo">
+
+        <!-- Main Title -->
+        <div class="main-text">
+            <h1>BUILT<br>LEGACY</h1>
+        </div>
+
+        <!-- Description Text -->
+        <p class="description">
+            This tool lets you explore the ages of buildings in major cities, with filters to view how each city has developed over its history.
+        </p>
+
+        <!-- Buttons Section -->
+        <div class="button-container">
+            <button class="explore-button" onclick="openSidebar('na')">Explore NA</button>
+            <button class="explore-button" onclick="openSidebar('eu')">Explore EU</button>
+        </div>
+
+        <!-- Credits Text -->
+        <p class="credits">BY Alejandro Quinto Ferrández & Riley LePrell</p>
+
+        <!-- Mask (Gradient) -->
+        <div class="mask"></div>
     </div>
 
     <script>
-        function selectCity(city) {
-            // Navigate to the visualization page with the selected cities
-            window.location.href = `visualization.html?city=${city}`;
+        function openSidebar(region) {
+            if (region === 'na') {
+                document.getElementById('sidebar-na').style.width = '360px';
+            } else if (region === 'eu') {
+                document.getElementById('sidebar-eu').style.width = '360px';
+            }
+            document.querySelector('.cover-screen').style.marginLeft = '360px';
+        }
+
+        function closeSidebar(region) {
+            if (region === 'na') {
+                document.getElementById('sidebar-na').style.width = '0';
+            } else if (region === 'eu') {
+                document.getElementById('sidebar-eu').style.width = '0';
+            }
+            document.querySelector('.cover-screen').style.marginLeft = '0';
         }
     </script>
 </body>

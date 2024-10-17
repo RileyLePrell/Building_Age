@@ -13,7 +13,7 @@ const cityCoordinates = {
     'elche': [38.2669, -0.6984],
     'alcoy': [38.7054, -0.4743],
     'coruna': [43.3623, -8.4115],
-    'Cramerton': [35.2359, -81.0718],  // Coordinates for Cramerton
+    'cramerton': [35.2359, -81.0718],  // Coordinates for Cramerton
 };
 
 const cityDataFiles = {
@@ -24,7 +24,7 @@ const cityDataFiles = {
     'elche': 'data/building-elche.geojson',
     'alcoy': 'data/building-alcoy.geojson',
     'coruna': 'data/building-coruna.geojson',
-    'Cramerton': 'data/Cramerton_Building_Age.geojson'// Add the A Cramerton GeoJSON file reference
+    'cramerton': 'data/Cramerton_Building_Age.geojson'// Add the A Cramerton GeoJSON file reference
 };
 
 const map = L.map('map').setView(cityCoordinates[city], 14);

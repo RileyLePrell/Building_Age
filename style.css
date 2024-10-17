@@ -1,37 +1,322 @@
+/* General Styles for the Landing Page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    background-color: #f0f2e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100%;
+    width: 0; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, #165448 0%, #6BB2A4 100%);
+    overflow-x: hidden;
+    transition: 0.5s; /* Smooth slide-in effect */
+    padding-top: 60px; /* Spacing from top */
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+}
+
+.sidebar p {
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* City Buttons */
+.city-button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 15px;
+    background-color: #D8B64D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.city-button:hover {
+    background-color: #B89E3F;
+}
+
+/* North America Sidebar Title */
+.sidebar-title-na {
+    color: #D8B64D; /* Gold color */
+    font-size: 30px;
+    text-transform: uppercase; /* Full caps */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Europe Sidebar Title */
+.sidebar-title-eu {
+    color: white;
+    font-size: 30px;
+    text-transform: uppercase; /* Full caps */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Subtitle Styling */
+.sidebar-subtitle {
+    font-size: 14px;
+    text-transform: uppercase; /* Full caps */
+    margin-bottom: 20px;
+}
+
+/* Cover Screen Layout */
+.cover-screen {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 1440px;
+    height: 100%;
+    padding: 20px;
+    background:#f0f2e9 ;
+    transition: margin-left 0.5s; /* Smooth shift of content */
+}
+
+/* Logo Styling */
+.logo {
+    width: 363px;
+    height: 372px;
+    position: absolute;
+    top: 255px;
+    left: 251px;
+}
+
+/* Main Title Styling */
+.main-text h1 {
+    font-size: 150px;
+    color: #0D6051;
+    opacity: 70%;
+    font-weight: 700;
+    text-align: left;
+    margin: 0;
+    position: absolute;
+    top: 293px;
+    left: 590px;
+    line-height: 1;
+}
+
+/* Mask (Gradient) Styling */
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #f0f2e9 0%, rgba(240, 242, 233, 0) 100%);
+    z-index: -1;
+}
+
+/* Description Text Styling */
+.description {
+    font-size: 20px;
+    color: #263d36;
+    font-weight: 400;
+    line-height: 1.34;
+    width: 796px;
+    position: absolute;
+    top: 665px;
+    left: 322px;
+}
+
+/* Button Styling */
+.button-container {
+    position: absolute;
+    top: 797px;
+    left: 396px;
+    display: flex;
+    gap: 82px;
+}
+
+.explore-button {
+    width: 259px;
+    height: 69px;
+    background-color: #0d6051;
+    opacity: 70%;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.explore-button:hover {
+    background-color: #0b5044;
+}
+
+/* Credits Styling */
+.credits {
+    font-size: 15px;
+    color: rgba(4, 3, 6, 0.6);
+    position: absolute;
+    top: 929px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+}
+
+
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .main-text h1 {
+        font-size: 120px; /* Adjust font size for smaller screens */
+        top: 280px; /* Adjust positioning */
+        left: 540px;
+    }
+
+    .logo {
+        width: 300px;
+        height: auto;
+        top: 230px; /* Adjust logo's position */
+        left: 50px;
+    }
+
+    .description {
+        width: 90%; /* Adjust width for smaller screens */
+        left: 5%;
+    }
+
+    .button-container {
+        top: 750px; /* Adjust button position */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-text h1 {
+        font-size: 100px; /* Further reduce the font size */
+        top: 240px; /* Adjust positioning */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .logo {
+        width: 250px;
+        top: 180px; /* Adjust logo's position */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .description {
+        font-size: 18px;
+        width: 90%;
+        top: 600px;
+        left: 5%;
+    }
+
+    .button-container {
+        top: 700px; /* Adjust button position */
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 40px; /* Reduce gap between buttons */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-text h1 {
+        font-size: 80px; /* Smaller font for mobile */
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .logo {
+        width: 200px;
+        top: 140px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .description {
+        font-size: 16px;
+        top: 550px;
+        width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .button-container {
+        top: 650px;
+        left: 50%;
+        transform: translateX(-50%);
+        gap: 20px; /* Narrow gap between buttons */
+    }
+}
+
+
+/* General Styles for Visualization (visualization.html) */
 body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column; /* Align elements vertically */
+    flex-direction: column; 
     align-items: center;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background-color: #333; /* Soft grey background for the entire page */
-    font-family: 'Inter', sans-serif; /* Use Inter font */
+    background-color: #333;
+    font-family: 'Inter', sans-serif;
 }
 
+/* Title Container */
 .title-container {
     width: 100%;
     text-align: left;
     margin: 0;
     padding: 10px 20px;
-    background-color: #333; /* Dark background for contrast */
-    color: white; /* Title color */
-    display: flex; /* Flex container for title and button */
-    align-items: center; /* Center vertically */
-    justify-content: space-between; /* Space between title and button */
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .title {
     margin: 0;
     font-size: 28px;
-    font-weight: 600; /* Semibold font weight */
+    font-weight: 600;
 }
 
+/* Back Button */
 .back-button {
     padding: 10px 20px;
-    background-color: #A3D69A; /* Same color as the city buttons */
+    background-color: #A3D69A;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -42,61 +327,62 @@ body {
 }
 
 .back-button:hover {
-    background-color: #88b682; /* Darker shade on hover */
+    background-color: #88b682;
 }
 
+/* Main Layout */
 .main-container {
     display: flex;
-    height: 85vh; /* Reduced height to accommodate title */
+    height: 85vh;
     width: 100vw;
-    position: static;
 }
 
 #map {
-    width: 50%; /* Adjust map width */
+    width: 50%;
     height: 100%;
 }
 
+/* Right-Side Content */
 .right-container {
-    width: 50%; /* Adjusted width for the right side */
+    width: 50%;
     height: 100vh;
-    background-color: #333; /* Match background color with the title */
+    background-color: #333;
     display: flex;
-    flex-direction: column; /* Arrange children vertically */
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Align items at the top */
+    justify-content: flex-start;
     padding: 5px;
-    box-sizing: border-box; /* Include padding in the width */
 }
 
+/* Total Buildings and Average Year Info */
 .total-info {
     width: 100%;
     display: flex;
-    justify-content: left; /* Align items to the left */
-    flex-direction: row; /* Stack them horizontally */
-    align-items: center; /* Center text */
-    margin-bottom: 0px; /* Margin below to separate from the chart */
+    justify-content: left;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0px;
     margin-left: 100px;
 }
 
 .total-buildings, .average-year {
     font-size: 20px;
     font-weight: 600;
-    color: #f8f8f8; /* Text color in light grey */
+    color: #f8f8f8;
     background-color: rgba(51, 51, 51, 0.8);
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px; /* Space between the two */
+    margin-bottom: 10px;
 }
 
+/* Chart Container */
 .chart-container {
     width: 95%;
-    height: 65%; /* Adjusted height for the chart container */
+    height: 65%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px; /* Margin below to separate from the legend */
+    margin-bottom: 10px;
 }
 
 #buildingsChart {
@@ -104,13 +390,13 @@ body {
     height: 100%;
 }
 
+/* Chart Legend */
 .chart-legend {
     width: 100%;
     color: #f8f8f8;
     display: flex;
-    flex-direction: row; /* Stack items horizontally */
+    flex-direction: row;
     gap: 5px;
-    text-align: left;
     padding: 10px;
     background-color: rgba(51, 51, 51, 0.8);
     border-radius: 8px;
@@ -129,64 +415,39 @@ body {
     display: inline-block;
 }
 
+/* Slider Container */
 .slider-container {
     position: absolute;
     bottom: 80px;
     left: 20px;
     padding: 10px;
-    color: #f8f8f8; /* Text color in light grey */
+    color: #f8f8f8;
     border-radius: 8px;
     z-index: 1200;
 }
 
-.city-selection-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; /* Adjust height to center buttons */
-    flex-direction: column;
-}
-
-.city-button {
-    font-size: 20px;
-    font-weight: 600;
-    padding: 15px 30px;
-    margin: 10px;
-    border: none;
-    border-radius: 8px;
-    background-color: #A3D69A; /* Same color palette as the buildings */
-    color: #fff;
-    cursor: pointer;
-}
-
-.city-button:hover {
-    background-color: #88b682; /* Darker shade on hover */
-}
-
-/* Mobile-specific styling */
+/* Mobile-Specific Styles */
 @media (max-width: 768px) {
-    .right-container, .total-info, .chart-container, .chart-legend { /* Hide all except map and sliders */
+    .right-container, .total-info, .chart-container, .chart-legend {
         display: none;
     }
 
     .main-container {
-        flex-direction: column; /* Stack elements vertically */
-        height: auto; /* Adjust height */
-        width: 100%; /* Full width for mobile */
-        margin: 0;
-        padding: 0;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
     }
 
     #map {
-        width: 100%; /* Full width for mobile */
-        height: calc(100vh - 80px); /* Adjust map height for mobile to fill screen */
+        width: 100%;
+        height: calc(100vh - 80px);
     }
 
-    .slider-container { /* Adjust slider container */
-        bottom: 20px; /* Move slider up */
-        left: 10px; /* Adjust left position */
-        width: calc(100% - 20px); /* Full width with some margin */
-        background-color: #333; 
+    .slider-container {
+        bottom: 20px;
+        left: 10px;
+        width: calc(100% - 20px);
+        background-color: #333;
         padding: 10px;
         border-radius: 8px;
     }
