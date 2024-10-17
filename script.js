@@ -6,11 +6,25 @@ const city = urlParams.get('city') || 'cramerton'; // Default to Cramerton if no
 
 // Initialize the map and set its view to the selected city
 const cityCoordinates = {
-    'Cramerton': [35.2359, -81.0718]  // Coordinates for Cramerton
+    'gandia': [38.9673, -0.1819],
+    'crevillente': [38.2496, -0.8127],
+    'valencia': [39.4699, -0.3763],
+    'benidorm': [38.5411, -0.1225],
+    'elche': [38.2669, -0.6984],
+    'alcoy': [38.7054, -0.4743],
+    'coruna': [43.3623, -8.4115],
+    'Cramerton': [35.2359, -81.0718],  // Coordinates for Cramerton
 };
 
 const cityDataFiles = {
-    'Cramerton': 'Cramerton_Building_Age.geojson' // Add the A Cramerton GeoJSON file reference
+    'gandia': 'building-gandia.geojson',
+    'crevillente': 'building-crevillente.geojson',
+    'valencia': 'building-valencia.geojson',
+    'benidorm': 'building-benidorm.geojson',
+    'elche': 'building-elche.geojson',
+    'alcoy': 'building-alcoy.geojson',
+    'coruna': 'building-coruna.geojson',
+    'Cramerton': 'Cramerton_Building_Age.geojson'// Add the A Cramerton GeoJSON file reference
 };
 
 const map = L.map('map').setView(cityCoordinates[city], 14);
@@ -142,7 +156,7 @@ function loadBuildingsByYearRange(minYear, maxYear) {
                 },
                 onEachFeature: function(feature, layer) {
                     const year = extractYear(feature.properties.beginning);
-                    layer.bindPopup(`Building Age: ${year}`);
+                    layer.bindPopup(`Year Built: ${year}`);
                 }
             }).addTo(map);
 
